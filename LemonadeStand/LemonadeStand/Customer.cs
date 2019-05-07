@@ -8,5 +8,33 @@ namespace LemonadeStand
 {
     public abstract class Customer
     {
+        //HAS
+        int chanceToBuyLemonade;
+        //CONSTRUCTOR
+
+        //DOES
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }

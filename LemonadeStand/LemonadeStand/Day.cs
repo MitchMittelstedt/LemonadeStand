@@ -24,6 +24,11 @@ namespace LemonadeStand
             totalCount = int.Parse(Console.ReadLine());
         }
 
+        public void GetWeather()
+        {
+            //random weather
+        }
+
 
 
 

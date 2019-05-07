@@ -15,6 +15,7 @@ namespace LemonadeStand
         public LemonadeRecipe recipe;
         public Player gamePlayer;
         public Day dayNumber;
+        public Store store;
 
         //CONSTRUCTOR
         public Game()
@@ -22,6 +23,7 @@ namespace LemonadeStand
             recipe = new LemonadeRecipe();
             gamePlayer = new Player();
             dayNumber = new Day();
+            store = new Store();
         }
 
 
@@ -31,11 +33,21 @@ namespace LemonadeStand
             GetName();
             do
             {
+                store.Sells();
+                gamePlayer.inventory.cash -= store.totalCost;
+                DisplayInventory();
                 recipe.GetRecipe();
+                gamePlayer.inventory.totalNumberOfLemons -= store.totalLemons;
+                gamePlayer.inventory.totalNumberOfCupsOfSugar -= store.totalCupsOfSugar;
+                gamePlayer.inventory.totalNumberOfCups -= store.totalCups;
+                gamePlayer.inventory.totalNumberOfIceCubes -= store.totalIceCubes;
+                recipe.DisplaySettings();
+                Console.ReadLine();
+                dayNumber.count++;
             }
-            while(dayNumber.count < dayNumber.totalCount);
-            
-            
+            while (dayNumber.count < dayNumber.totalCount);
+
+
 
 
         }
@@ -47,20 +59,9 @@ namespace LemonadeStand
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        public void DisplayInventory()
+        {
+            Console.WriteLine($"{gamePlayer.inventory.totalNumberOfLemons} lemons, {gamePlayer.inventory.totalNumberOfCupsOfSugar} cups of sugar, {gamePlayer.inventory.totalNumberOfCups} ice cubes, {gamePlayer.inventory.totalNumberOfCups} cups.");
+        }
     }
 }
