@@ -48,102 +48,107 @@ namespace LemonadeStand
             totalIceCubes = 0;
     }
         //DOES
-        public void Sells() //adds cost of purchases together . . . move to player class?
+        public void Sells()
         {
-            Console.WriteLine("What would you like to buy?");
-            string purchaseChoice = Console.ReadLine();
-            switch(purchaseChoice)
+            string purchaseChoice = "";
+            while (purchaseChoice != "I'm good to go.")
             {
-                case "lemons":
-                    Console.WriteLine("How many lemons? 10, 20, or 40?");
-                    string number = Console.ReadLine();
-                    switch(number)
-                    {
-                        case "10":
-                            totalCost += tenLemons;
-                            totalLemons += 10;
-                            Sells();
-                            break;
-                        case "20":
-                            totalCost += twentyLemons;
-                            totalLemons += 20;
-                            Sells();
-                            break;
-                        case "40":
-                            totalCost += fortyLemons;
-                            totalLemons += 40;
-                            Sells();
-                            break;
-                    }
-                    break;
-                case "sugar":
-                    Console.WriteLine("How many cups of sugar? 10, 20, or 40?");
-                    number = Console.ReadLine();
-                    switch (number)
-                    {
-                        case "10":
-                            totalCost += tenCupsOfSugar;
-                            totalCupsOfSugar += 10;
-                            Sells();
-                            break;
-                        case "20":
-                            totalCost += twentyCupsOfSugar;
-                            totalCupsOfSugar += 20;
-                            Sells();
-                            break;
-                        case "40":
-                            totalCost += fortyCupsOfSugar;
-                            totalCupsOfSugar += 40;
-                            Sells();
-                            break;
-                    }
-                    break;
-                case "cups":
-                    Console.WriteLine("How many cups? 25, 50, or 100?");
-                    number = Console.ReadLine();
-                    switch (number)
-                    {
-                        case "25":
-                            totalCost += twentyFiveCups;
-                            totalCups += 25;
-                            Sells();
-                            break;
-                        case "50":
-                            totalCost += fiftyCups;
-                            totalCups += 50;
-                            Sells();
-                            break;
-                        case "100":
-                            totalCost += oneHundredCups;
-                            totalCups += 100;
-                            Sells();
-                            break;
-                    }
-                    break;
-                case "ice cubes":
-                    Console.WriteLine("How many ice cubes? 100, 250, or 500?");
-                    number = Console.ReadLine();
-                    switch(number)
-                    {
-                        case "100":
-                            totalCost += oneHundredIceCubes;
-                            totalIceCubes += 100;
-                            Sells();
-                            break;
-                        case "250":
-                            totalCost += twoHundredFiftyIceCubes;
-                            totalIceCubes += 250;
-                            Sells();
-                            break;
-                        case "500":
-                            totalCost += fiveHundredIceCubes;
-                            totalIceCubes += 500;
-                            Sells();
-                            break;
-                    }
-                    break;
-            }
 
+                Console.WriteLine("Welcome to the store! What would you like to buy? We sell: \n\"lemons\" ($.89 for 10, $1.50 for 20, $2.79 for 40), \n\"sugar\" ($.89 for 10 (cups of sugar), $1.50 for 20, $2.79 for 40),  \n\"ice cubes\" ($.89 for 100, $1.50 for 250, $2.79 for 500), \n\"cups\" ($.89 for 25, $1.50 for 50, $2.79 for 100). \nIf you're good to go, just say, \"I'm good to go.\"");
+                purchaseChoice = Console.ReadLine();
+                switch (purchaseChoice)
+                {
+                    case "lemons":
+                        Console.WriteLine("How many lemons? 10, 20, or 40?");
+                        string number = Console.ReadLine();
+                        switch (number)
+                        {
+                            case "10":
+                                totalCost += tenLemons;
+                                totalLemons += 10;
+                                break;
+                            case "20":
+                                totalCost += twentyLemons;
+                                totalLemons += 20;
+                                break;
+                            case "40":
+                                totalCost += fortyLemons;
+                                totalLemons += 40;
+                                break;
+                            default:
+                                break;
+
+                        }
+
+                        break;
+                    case "sugar":
+                        Console.WriteLine("How many cups of sugar? 10, 20, or 40?");
+                        number = Console.ReadLine();
+                        switch (number)
+                        {
+                            case "10":
+                                totalCost += tenCupsOfSugar;
+                                totalCupsOfSugar += 10;
+                                break;
+                            case "20":
+                                totalCost += twentyCupsOfSugar;
+                                totalCupsOfSugar += 20;
+                                break;
+                            case "40":
+                                totalCost += fortyCupsOfSugar;
+                                totalCupsOfSugar += 40;
+                                break;
+                            default:
+                                break;
+                        }
+                        break;
+                    case "cups":
+                        Console.WriteLine("How many cups? 25, 50, or 100?");
+                        number = Console.ReadLine();
+                        switch (number)
+                        {
+                            case "25":
+                                totalCost += twentyFiveCups;
+                                totalCups += 25;
+                                break;
+                            case "50":
+                                totalCost += fiftyCups;
+                                totalCups += 50;
+                                break;
+                            case "100":
+                                totalCost += oneHundredCups;
+                                totalCups += 100;
+                                break;
+                        }
+                        break;
+                    case "ice cubes":
+                        Console.WriteLine("How many ice cubes? 100, 250, or 500?");
+                        number = Console.ReadLine();
+                        switch (number)
+                        {
+                            case "100":
+                                totalCost += oneHundredIceCubes;
+                                totalIceCubes += 100;
+                                break;
+                            case "250":
+                                totalCost += twoHundredFiftyIceCubes;
+                                totalIceCubes += 250;
+                                break;
+                            case "500":
+                                totalCost += fiveHundredIceCubes;
+                                totalIceCubes += 500;
+                                break;
+                            default:
+                                break;
+                        }
+                        break;
+                    case "I'm good to go.":
+                        break;
+
+                }
+
+            }
+            
         }
 
 

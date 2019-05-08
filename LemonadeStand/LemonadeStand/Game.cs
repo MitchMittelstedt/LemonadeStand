@@ -13,16 +13,17 @@ namespace LemonadeStand
 
         //HAS
         public LemonadeRecipe recipe;
-        public Player gamePlayer;
-        public Day dayNumber;
+        public Player player;
+        public Day day;
         public Store store;
+        public int pricePerDay;
 
         //CONSTRUCTOR
         public Game()
         {
             recipe = new LemonadeRecipe();
-            gamePlayer = new Player();
-            dayNumber = new Day();
+            player = new Player();
+            day = new Day();
             store = new Store();
         }
 
@@ -31,37 +32,89 @@ namespace LemonadeStand
         public void PlayGame()
         {
             GetName();
+            GetNumberOfDays();
+            day.DayToStart();
             do
             {
+                DisplayDayNumberAndDay();
+                DisplayInventory();
                 store.Sells();
-                gamePlayer.inventory.cash -= store.totalCost;
+                UpdateInventoryAfterStore();
                 DisplayInventory();
                 recipe.GetRecipe();
-                gamePlayer.inventory.totalNumberOfLemons -= store.totalLemons;
-                gamePlayer.inventory.totalNumberOfCupsOfSugar -= store.totalCupsOfSugar;
-                gamePlayer.inventory.totalNumberOfCups -= store.totalCups;
-                gamePlayer.inventory.totalNumberOfIceCubes -= store.totalIceCubes;
+                DisplayInventory();
                 recipe.DisplaySettings();
+                SetPrice();
+                player.MakePitcher();
+                while (player.inventory.totalNumberOfLemons > 0 && player.inventory.totalNumberOfCupsOfSugar > 0 && player.inventory.totalNumberOfIceCubes > 0 && player.inventory.totalNumberOfCups > 0)
+                {
+                    player.SellCupOfLemonadeToCustomer();
+                }
                 Console.ReadLine();
-                dayNumber.count++;
+                day.count++;
+                NextDay();
             }
-            while (dayNumber.count < dayNumber.totalCount);
-
-
-
-
+            while (day.count < day.totalDayCount);
+            DisplayInventory();
         }
 
         public void GetName()
         {
             Console.WriteLine("Please enter your name.");
-            gamePlayer.name = Console.ReadLine();
+            player.name = Console.ReadLine();
+        }
+
+        public void GetNumberOfDays()
+        {
+            Console.WriteLine($"Hello, {player.name}. Select the number of days the game runs: 7, 14, or 28");
+            day.totalDayCount = int.Parse(Console.ReadLine());
+            if(day.totalDayCount == 7 || day.totalDayCount == 14 || day.totalDayCount == 28)
+            {
+                return;
+            }
+            else
+            {
+                GetNumberOfDays();
+            }
+        }
+
+        public void DisplayDayNumberAndDay()
+        {
+            Console.WriteLine($"{player.name}, this is day #{day.count}, a {day.currentDay}.");
+        }
+
+        public void NextDay()
+        {
+            day.dayOfWeek++;
+            int index = day.dayOfWeek;
+            day.currentDay = day.whichDay[index + 1];
+        }
+
+        public void UpdateInventoryAfterStore()
+        {
+            player.inventory.cash -= store.totalCost;
+            player.inventory.totalNumberOfLemons += store.totalLemons;
+            player.inventory.totalNumberOfCupsOfSugar += store.totalCupsOfSugar;
+            player.inventory.totalNumberOfCups += store.totalCups;
+            player.inventory.totalNumberOfIceCubes += store.totalIceCubes;
+        }
+
+        public void SetPrice()
+        {
+            Console.WriteLine("What will the price of a cup of lemonade be today?");
+            pricePerDay = int.Parse(Console.ReadLine());
+        }
+
+        public void UpdateInventoryAfterDay()
+        {
+            player.inventory.totalNumberOfIceCubes = 0;
+            Console.WriteLine($"Your inventory has been updated: {player.inventory.totalNumberOfLemons} lemons, {player.inventory.totalNumberOfCupsOfSugar} cups of sugar, {player.inventory.totalNumberOfIceCubes} ice cubes, {player.inventory.totalNumberOfCups} cups, and ${player.inventory.cash}.");
         }
 
 
         public void DisplayInventory()
         {
-            Console.WriteLine($"{gamePlayer.inventory.totalNumberOfLemons} lemons, {gamePlayer.inventory.totalNumberOfCupsOfSugar} cups of sugar, {gamePlayer.inventory.totalNumberOfCups} ice cubes, {gamePlayer.inventory.totalNumberOfCups} cups.");
+            Console.WriteLine($"Your inventory includes the following: {player.inventory.totalNumberOfLemons} lemons, {player.inventory.totalNumberOfCupsOfSugar} cups of sugar, {player.inventory.totalNumberOfIceCubes} ice cubes, {player.inventory.totalNumberOfCups} cups, and ${player.inventory.cash}.");
         }
     }
 }
