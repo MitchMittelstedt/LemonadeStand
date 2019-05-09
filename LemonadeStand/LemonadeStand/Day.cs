@@ -31,6 +31,7 @@ namespace LemonadeStand
             whichDay.Add("Friday");
             whichDay.Add("Saturday");
             random = new Random();
+            totalChance = 0;
         }
         //DOES
 
@@ -45,44 +46,109 @@ namespace LemonadeStand
             return currentDay;
         }
 
-        public void totalChanceByDay()
+        public void TotalChanceByDay()
         {
             switch(currentDay)
             {
 
                 case "Sunday":
-                    totalChance = random.Next(70, 91);
+                    totalChance += random.Next(70, 91);
                     break;
                 case "Monday":
-                    totalChance = random.Next(40, 61);
+                    totalChance += random.Next(40, 61);
                     break;
                 case "Tuesday":
-                    totalChance = random.Next(40, 51);
+                    totalChance += random.Next(40, 51);
                     break;
                 case "Wednesday":
-                    totalChance = random.Next(60, 81);
+                    totalChance += random.Next(60, 81);
                     break;
                 case "Thursday":
-                    totalChance = random.Next(70, 91);
+                    totalChance += random.Next(70, 91);
                     break;
                 case "Friday":
-                    totalChance = random.Next(80, 101);
+                    totalChance += random.Next(80, 101);
                     break;
                 case "Saturday":
-                    totalChance = random.Next(80, 101);
+                    totalChance += random.Next(80, 101);
                     break;
             }
         }
 
-        public void totalChanceByWeather()
+        public void TotalChanceByWeather()
         {
-            switch(weather.)
+            switch(weather.currentWeather)
             {
-
+                case "sunny":
+                    totalChance += random.Next(80, 101);
+                    break;
+                case "rainy":
+                    totalChance += random.Next(20, 31);
+                    break;
+                case "cloudy":
+                    totalChance += random.Next(50, 81);
+                    break;
+                case "windy":
+                    totalChance += random.Next(70, 81);
+                    break;
+                case "tornado":
+                    totalChance += random.Next(0, 21);
+                    break;
+                case "volcano":
+                    totalChance += random.Next(0, 11);
+                    break;
+            }
+        }
+        public void TotalChanceByTemperature()
+        {
+            if (weather.temperature > 90)
+            {
+                totalChance += random.Next(90, 101);
+            }
+            else if (weather.temperature > 80 && weather.temperature < 90)
+            {
+                totalChance += random.Next(80, 91);
+            }
+            else if (weather.temperature > 70 && weather.temperature < 80)
+            {
+                totalChance += random.Next(70, 81);
+            }
+            else if (weather.temperature > 60 && weather.temperature < 70)
+            {
+                totalChance += random.Next(60, 71);
+            }
+            else
+            {
+                totalChance += random.Next(50, 61);
             }
         }
 
 
+        //switch (weather.currentWeather)
+        //{
+        //    case "sunny":
+        //        totalChance += random.Next(80, 101);
+        //        break;
+        //    case "rainy":
+        //        totalChance += random.Next(20, 31);
+        //        break;
+        //    case "cloudy":
+        //        totalChance += random.Next(50, 81);
+        //        break;
+        //    case "windy":
+        //        totalChance += random.Next(70, 81);
+        //        break;
+        //    case "tornado":
+        //        totalChance += random.Next(0, 21);
+        //        break;
+        //    case "volcano":
+        //        totalChance += random.Next(0, 11);
+        //        break;
+        //}
+        public void totalChanceByCustomer()
+        {
+
+        }
 
         public void GetWeather()
         {
@@ -92,17 +158,28 @@ namespace LemonadeStand
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 }

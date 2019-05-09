@@ -6,14 +6,18 @@ using System.Threading.Tasks;
 
 namespace LemonadeStand
 {
-    public abstract class Customer
+    public class Customer
     {
         //HAS
         int chanceToBuyLemonade;
         //CONSTRUCTOR
 
-        //DOES
 
+        //DOES
+        public void GenerateCustomer()
+        {
+
+        }
 
 
 

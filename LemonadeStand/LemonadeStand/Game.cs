@@ -48,6 +48,7 @@ namespace LemonadeStand
                 player.MakePitcher();
                 while (player.inventory.totalNumberOfLemons > 0 && player.inventory.totalNumberOfCupsOfSugar > 0 && player.inventory.totalNumberOfIceCubes > 0 && player.inventory.totalNumberOfCups > 0)
                 {
+                    //if customer buys a lemonade (above a certain % for true)
                     player.SellCupOfLemonadeToCustomer();
                 }
                 Console.ReadLine();
