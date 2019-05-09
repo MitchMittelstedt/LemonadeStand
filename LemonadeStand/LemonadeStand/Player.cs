@@ -8,14 +8,9 @@ namespace LemonadeStand
 {
     class Player
     {
-        
-
-
         //HAS
         public string name;
         public int pitcher;
-        public int updatedTotalLemons;
-        public int updatedTotalCupsOfSugar;
         public int cupsToPitcher;
         public Inventory inventory;
         public LemonadeRecipe recipe;

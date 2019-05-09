@@ -83,8 +83,7 @@ namespace LemonadeStand
             {
                 numberOfPeople += random.Next(20, 41);
             }
-            numberOfPeople = numberOfPeople / 2;
-
+            numberOfPeople /= 2;
         }
 
 

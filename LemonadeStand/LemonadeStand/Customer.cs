@@ -8,16 +8,18 @@ namespace LemonadeStand
 {
     public class Customer
     {
-        //HAS
-        int chanceToBuyLemonade;
+        //HAS        
+        public List<int> peopleChances = new List<int>();
+        public int chanceToBuyLemonade;
+        public Random random;
         //CONSTRUCTOR
+        public Customer()
+        {
+        }
 
 
         //DOES
-        public void GenerateCustomer()
-        {
 
-        }
 
 
 

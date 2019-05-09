@@ -45,6 +45,7 @@ namespace LemonadeStand
                 DisplayInventory();
                 recipe.DisplaySettings();
                 SetPrice();
+                day.GenerateListOfPeopleChances();
                 player.MakePitcher();
                 while (player.inventory.totalNumberOfLemons > 0 && player.inventory.totalNumberOfCupsOfSugar > 0 && player.inventory.totalNumberOfIceCubes > 0 && player.inventory.totalNumberOfCups > 0)
                 {
@@ -52,10 +53,10 @@ namespace LemonadeStand
                     player.SellCupOfLemonadeToCustomer();
                 }
                 Console.ReadLine();
-                day.count++;
+                day.dayCount++;
                 NextDay();
             }
-            while (day.count < day.totalDayCount);
+            while (day.dayCount < day.totalDayCount);
             DisplayInventory();
         }
 
@@ -81,7 +82,7 @@ namespace LemonadeStand
 
         public void DisplayDayNumberAndDay()
         {
-            Console.WriteLine($"{player.name}, this is day #{day.count}, a {day.currentDay}.");
+            Console.WriteLine($"{player.name}, this is day #{day.dayCount}, a {day.currentDay}.");
         }
 
         public void NextDay()
@@ -116,6 +117,17 @@ namespace LemonadeStand
         public void DisplayInventory()
         {
             Console.WriteLine($"Your inventory includes the following: {player.inventory.totalNumberOfLemons} lemons, {player.inventory.totalNumberOfCupsOfSugar} cups of sugar, {player.inventory.totalNumberOfIceCubes} ice cubes, {player.inventory.totalNumberOfCups} cups, and ${player.inventory.cash}.");
+        }
+
+        public void ConvertToBuyOrNot()
+        {
+            foreach (int element in day.customer.peopleChances)
+            {
+                if (element > 50)
+                {
+                    player.SellCupOfLemonadeToCustomer();
+                }
+            }
         }
     }
 }

@@ -9,12 +9,13 @@ namespace LemonadeStand
     class Day
     {
         //HAS
-        public int count;
+        public int dayCount;
         public int totalDayCount;
         public int dayOfWeek;
         public string currentDay;
         public int totalChance;
         public List<string> whichDay = new List<string>();
+        public int numberOfChanceVariables;
         public Weather weather;
         public Customer customer;
         public Random random;
@@ -22,7 +23,7 @@ namespace LemonadeStand
         //CONSTRUCTOR
         public Day ()
         {
-            count = 1;
+            dayCount = 1;
             whichDay.Add("Sunday");
             whichDay.Add("Monday");
             whichDay.Add("Tuesday");
@@ -31,11 +32,12 @@ namespace LemonadeStand
             whichDay.Add("Friday");
             whichDay.Add("Saturday");
             random = new Random();
+            customer = new Customer();
+            weather = new Weather();
             totalChance = 0;
+            numberOfChanceVariables = 4;
         }
-        //DOES
-
-        
+        //DOES 
         public string DayToStart()
         {
             dayOfWeek = random.Next(0, 8);
@@ -46,11 +48,10 @@ namespace LemonadeStand
             return currentDay;
         }
 
-        public void TotalChanceByDay()
+        public int TotalChanceByDay()
         {
             switch(currentDay)
             {
-
                 case "Sunday":
                     totalChance += random.Next(70, 91);
                     break;
@@ -73,34 +74,32 @@ namespace LemonadeStand
                     totalChance += random.Next(80, 101);
                     break;
             }
-        }
-
-        public void TotalChanceByWeather()
-        {
-            switch(weather.currentWeather)
+            switch (weather.currentWeather)
             {
                 case "sunny":
                     totalChance += random.Next(80, 101);
                     break;
+
                 case "rainy":
                     totalChance += random.Next(20, 31);
                     break;
+
                 case "cloudy":
                     totalChance += random.Next(50, 81);
                     break;
+
                 case "windy":
                     totalChance += random.Next(70, 81);
                     break;
+
                 case "tornado":
                     totalChance += random.Next(0, 21);
                     break;
+
                 case "volcano":
                     totalChance += random.Next(0, 11);
                     break;
             }
-        }
-        public void TotalChanceByTemperature()
-        {
             if (weather.temperature > 90)
             {
                 totalChance += random.Next(90, 101);
@@ -121,7 +120,37 @@ namespace LemonadeStand
             {
                 totalChance += random.Next(50, 61);
             }
+            totalChance = GenerateIndividualCustomerChance();
+            return totalChance;
         }
+
+        public int GenerateIndividualCustomerChance()
+        {
+            customer.chanceToBuyLemonade = random.Next(0, 100);
+            totalChance += customer.chanceToBuyLemonade;
+            totalChance /= numberOfChanceVariables;
+            return totalChance;
+        }
+        public void GenerateListOfPeopleChances()
+        {
+            for (int i = 0; i < weather.numberOfPeople; i++)
+            {
+                customer.peopleChances.Add(TotalChanceByDay()); //now there's a list of people chances
+            }
+
+        }
+
+
+    }
+
+
+
+
+
+}
+
+
+
 
 
         //switch (weather.currentWeather)
@@ -145,20 +174,12 @@ namespace LemonadeStand
         //        totalChance += random.Next(0, 11);
         //        break;
         //}
-        public void totalChanceByCustomer()
-        {
-
-        }
-
-        public void GetWeather()
-        {
-            //random weather
-        }
 
 
 
 
-    }
+    
+
 
 
 
@@ -182,4 +203,4 @@ namespace LemonadeStand
 
 
     
-}
+
