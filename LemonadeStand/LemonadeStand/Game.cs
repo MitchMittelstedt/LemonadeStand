@@ -31,6 +31,7 @@ namespace LemonadeStand
             GetName();
             GetNumberOfDays();
             day.DayToStart();
+            DisplayForecastWeatherAndTemperatureForDurationOfGame();
             do
             {
                 DisplayDayNumberAndDay();
@@ -74,6 +75,19 @@ namespace LemonadeStand
                 GetNumberOfDays();
             }
         }
+
+        public void DisplayForecastWeatherAndTemperatureForDurationOfGame()
+        {
+            for (int i = 0; i < day.totalDayCount; i++)
+            {
+                day.weather.ForecastWeatherAndTemperature();
+                day.weather.forecastWeatherList.Add(day.weather.forecastWeather);
+                day.weather.forecastWeatherList.ForEach(Console.WriteLine);
+                day.weather.forecastTemperatureList.Add(day.weather.forecastTemperature);
+                day.weather.forecastTemperatureList.ForEach(Console.WriteLine);
+            }
+        }
+
 
         public void DisplayDayNumberAndDay()
         {

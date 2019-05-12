@@ -41,19 +41,11 @@ namespace LemonadeStand
         public void ForecastWeatherAndTemperature()
         {
             forecastWeatherCondition = random.Next(0, 6);
-            forecastWeather = conditions[weatherCondition];
-            temperature = random.Next(50, 101);
+            forecastWeather = conditions[forecastWeatherCondition];
+            forecastTemperature = random.Next(50, 101);
         }
 
-        public void ForecastWeatherForDurationOfGame()
-        {
 
-        }
-
-        public void ForecastTemperatureForDurationOfGame()
-        {
-
-        }
 
         public void CurrentWeatherAndTemperature()
         {
