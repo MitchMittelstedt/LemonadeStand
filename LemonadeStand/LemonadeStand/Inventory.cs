@@ -14,8 +14,6 @@ namespace LemonadeStand
         public int totalNumberOfCups;
         public int totalNumberOfIceCubes;
         public double cash;
-        public LemonadeRecipe recipe;
-
         //CONSTRUCTOR
         public Inventory()
         {
@@ -24,23 +22,7 @@ namespace LemonadeStand
             totalNumberOfCups = 0;
             totalNumberOfIceCubes = 0;
             cash = 20.00;
-            recipe = new LemonadeRecipe();
         }
         //DOES
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }

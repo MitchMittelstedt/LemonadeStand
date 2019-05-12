@@ -16,7 +16,9 @@ namespace LemonadeStand
         //constructor  
         public LemonadeRecipe()
         {
-
+            numberOfLemons = 0;
+            numberOfCupsOfSugar = 0;
+            numberOfIceCubes = 0;
         }
 
         //does
@@ -26,19 +28,36 @@ namespace LemonadeStand
         {
             Console.WriteLine("How many lemons per pitcher?");
             numberOfLemons = int.Parse(Console.ReadLine());
+            if(numberOfLemons > 0)
+            {
+                Console.WriteLine("How many cups of sugar per pitcher?");
+                numberOfCupsOfSugar = int.Parse(Console.ReadLine());
+                if(numberOfCupsOfSugar > 0)
+                {
+                    Console.WriteLine("How many ice cubes?");
+                    numberOfIceCubes = int.Parse(Console.ReadLine());
+                    if(numberOfIceCubes > 0)
+                    {
+                        Console.WriteLine("Thank you!");
+                    }else
+                    {
+                        GetRecipe();
+                    }
+                }else
+                {
+                    GetRecipe();
+                }
+            }
+            else
+            {
+                GetRecipe();
+            }
 
-            Console.WriteLine("How many cups of sugar per pitcher?");
-            numberOfCupsOfSugar = int.Parse(Console.ReadLine());
 
-            Console.WriteLine("How many ice cubes?");
-            numberOfIceCubes = int.Parse(Console.ReadLine());
+
         }
 
-        public void DisplaySettings()
-        {
-            Console.WriteLine($"Today, you prepared your lemonade with {numberOfLemons} lemons, {numberOfCupsOfSugar} cups of sugar, and {numberOfIceCubes} ice cubes. Good luck!");
-        }
-       
+
 
 
 

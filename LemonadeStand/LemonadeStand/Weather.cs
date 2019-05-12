@@ -11,9 +11,14 @@ namespace LemonadeStand
         //HAS (DO LIST)
         public int numberOfPeople;
         public int temperature;
+        public int forecastTemperature;
         public int weatherCondition;
+        public int forecastWeatherCondition;
         public string currentWeather;
+        public string forecastWeather;
         public List<string> conditions = new List<string>();
+        public List<string> forecastWeatherList = new List<string>();
+        public List<int> forecastTemperatureList = new List<int>();
         public Random random;
         public Customer customer;
         //CONSTRUCTOR
@@ -33,7 +38,24 @@ namespace LemonadeStand
 
         //DOES
 
-        public void CurrentTemperature()
+        public void ForecastWeatherAndTemperature()
+        {
+            forecastWeatherCondition = random.Next(0, 6);
+            forecastWeather = conditions[weatherCondition];
+            temperature = random.Next(50, 101);
+        }
+
+        public void ForecastWeatherForDurationOfGame()
+        {
+
+        }
+
+        public void ForecastTemperatureForDurationOfGame()
+        {
+
+        }
+
+        public void CurrentWeatherAndTemperature()
         {
             weatherCondition = random.Next(0, 6);
             currentWeather = conditions[weatherCondition];
@@ -85,21 +107,5 @@ namespace LemonadeStand
             }
             numberOfPeople /= 2;
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }

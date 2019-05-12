@@ -8,23 +8,20 @@ namespace LemonadeStand
 {
     class Game
     {
-
-
-
         //HAS
-        public LemonadeRecipe recipe;
         public Player player;
         public Day day;
         public Store store;
-        public int pricePerDay;
-
+        public List<int> dailyLogOfCustomers = new List<int>();
+        public List<int> dailyLogOfAllCustomers = new List<int>();
+        public Random random;
         //CONSTRUCTOR
         public Game()
         {
-            recipe = new LemonadeRecipe();
             player = new Player();
             day = new Day();
             store = new Store();
+            random = new Random();
         }
 
 
@@ -41,23 +38,21 @@ namespace LemonadeStand
                 store.Sells();
                 UpdateInventoryAfterStore();
                 DisplayInventory();
-                recipe.GetRecipe();
+                player.recipe.GetRecipe();
                 DisplayInventory();
-                recipe.DisplaySettings();
                 SetPrice();
+                DisplaySettings();
+                day.weather.CurrentWeatherAndTemperature();
+                day.weather.GetNumberOfPeopleAccordingToWeather();
                 day.GenerateListOfPeopleChances();
+
                 player.MakePitcher();
-                while (player.inventory.totalNumberOfLemons > 0 && player.inventory.totalNumberOfCupsOfSugar > 0 && player.inventory.totalNumberOfIceCubes > 0 && player.inventory.totalNumberOfCups > 0)
-                {
-                    //if customer buys a lemonade (above a certain % for true)
-                    player.SellCupOfLemonadeToCustomer();
-                }
-                Console.ReadLine();
-                day.dayCount++;
+                ConvertToBuyOrNot();
+                DisplayDayOverview();
                 NextDay();
             }
             while (day.dayCount < day.totalDayCount);
-            DisplayInventory();
+            DisplayEndOverview();
         }
 
         public void GetName()
@@ -70,7 +65,7 @@ namespace LemonadeStand
         {
             Console.WriteLine($"Hello, {player.name}. Select the number of days the game runs: 7, 14, or 28");
             day.totalDayCount = int.Parse(Console.ReadLine());
-            if(day.totalDayCount == 7 || day.totalDayCount == 14 || day.totalDayCount == 28)
+            if (day.totalDayCount == 7 || day.totalDayCount == 14 || day.totalDayCount == 28)
             {
                 return;
             }
@@ -87,9 +82,22 @@ namespace LemonadeStand
 
         public void NextDay()
         {
+            dailyLogOfAllCustomers.Add(day.customer.peopleChances.Count());
+            dailyLogOfCustomers.Add(player.numberOfBuyers);
+            player.numberOfBuyers = 0;
+            day.customer.peopleChances.Clear();
+            player.inventory.totalNumberOfIceCubes = 0;
+            day.dayCount++;
+            if (day.dayOfWeek == 6)
+            {
+                day.dayOfWeek = 0;
+            }
+            else
+            {
             day.dayOfWeek++;
             int index = day.dayOfWeek;
-            day.currentDay = day.whichDay[index + 1];
+            day.currentDay = day.whichDay[index];
+            }
         }
 
         public void UpdateInventoryAfterStore()
@@ -104,7 +112,7 @@ namespace LemonadeStand
         public void SetPrice()
         {
             Console.WriteLine("What will the price of a cup of lemonade be today?");
-            pricePerDay = int.Parse(Console.ReadLine());
+            day.pricePerDay = double.Parse(Console.ReadLine());
         }
 
         public void UpdateInventoryAfterDay()
@@ -113,21 +121,68 @@ namespace LemonadeStand
             Console.WriteLine($"Your inventory has been updated: {player.inventory.totalNumberOfLemons} lemons, {player.inventory.totalNumberOfCupsOfSugar} cups of sugar, {player.inventory.totalNumberOfIceCubes} ice cubes, {player.inventory.totalNumberOfCups} cups, and ${player.inventory.cash}.");
         }
 
+        public void DisplaySettings()
+        {
+            Console.WriteLine($"Today, you prepared your lemonade with {player.recipe.numberOfLemons} lemons, {player.recipe.numberOfCupsOfSugar} cups of sugar, and {player.recipe.numberOfIceCubes} ice cubes, and the price you set is ${day.pricePerDay}. Good luck!");
+        }
+
 
         public void DisplayInventory()
         {
             Console.WriteLine($"Your inventory includes the following: {player.inventory.totalNumberOfLemons} lemons, {player.inventory.totalNumberOfCupsOfSugar} cups of sugar, {player.inventory.totalNumberOfIceCubes} ice cubes, {player.inventory.totalNumberOfCups} cups, and ${player.inventory.cash}.");
         }
 
-        public void ConvertToBuyOrNot()
+        public void ConvertToBuyOrNot() //SellLemonadeToCustomers()
         {
-            foreach (int element in day.customer.peopleChances)
+            foreach (int element in day.customer.peopleChances) //why is it selling to more than the number of chances?
             {
                 if (element > 50)
                 {
+                    player.inventory.cash += day.pricePerDay;
+                    player.numberOfBuyers++;
                     player.SellCupOfLemonadeToCustomer();
+
+
+                    if (player.cupsToPitcher == 0)
+                    {
+                        if (player.inventory.totalNumberOfLemons >= player.recipe.numberOfLemons && player.inventory.totalNumberOfCupsOfSugar >= player.recipe.numberOfCupsOfSugar && player.inventory.totalNumberOfIceCubes >= player.recipe.numberOfIceCubes && player.inventory.totalNumberOfCups >= player.cupsToPitcher)
+                        {
+                            player.MakePitcher();
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
                 }
             }
         }
+
+        public void DisplayDayOverview()
+        {
+            Console.WriteLine($"You sold lemonade to {player.numberOfBuyers} of {day.customer.peopleChances.Count()} customers.");
+        }
+
+        public void DisplayEndOverview()
+        {
+            Console.WriteLine($"You sold lemonade to {dailyLogOfCustomers.Sum()} of a total {dailyLogOfAllCustomers.Sum()} possible customers. \n\nYou made ${player.inventory.cash}!\n\nPlay again (1) or quit?");
+            int playAgainOrQuit = int.Parse(Console.ReadLine());
+            switch(playAgainOrQuit)
+            {
+                case 1:
+                    PlayGame();
+                    break;
+                case 2:
+                    break;
+                default:
+                    DisplayEndOverview();
+                    break;
+            }
+        }
+        public void WeatherForecast()
+        {
+
+        }
     }
 }
+                  

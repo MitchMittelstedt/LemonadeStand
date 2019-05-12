@@ -50,6 +50,11 @@ namespace LemonadeStand
         //DOES
         public void Sells()
         {
+            totalLemons = 0;
+            totalCupsOfSugar = 0;
+            totalIceCubes = 0;
+            totalCups = 0;
+
             string purchaseChoice = "";
             while (purchaseChoice != "I'm good to go.")
             {

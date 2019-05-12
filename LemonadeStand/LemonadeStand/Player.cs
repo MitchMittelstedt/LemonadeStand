@@ -12,6 +12,7 @@ namespace LemonadeStand
         public string name;
         public int pitcher;
         public int cupsToPitcher;
+        public int numberOfBuyers;
         public Inventory inventory;
         public LemonadeRecipe recipe;
 
@@ -22,12 +23,12 @@ namespace LemonadeStand
             inventory = new Inventory();
             pitcher = 0;
             cupsToPitcher = 8;
+            numberOfBuyers = 0;
         }
-
         //DOES
-
         public void MakePitcher()
         {
+            cupsToPitcher = 8;
             inventory.totalNumberOfLemons -= recipe.numberOfLemons;
             inventory.totalNumberOfCupsOfSugar -= recipe.numberOfCupsOfSugar;
             inventory.totalNumberOfIceCubes -= recipe.numberOfIceCubes;
@@ -36,11 +37,19 @@ namespace LemonadeStand
 
         public void SellCupOfLemonadeToCustomer()
         {
-            while(cupsToPitcher > 0)
+            if(cupsToPitcher > 0)
             {
                 cupsToPitcher--;
             }
-            MakePitcher();
+            //else
+            //{
+
+            //    if (inventory.totalNumberOfLemons >= recipe.numberOfLemons && inventory.totalNumberOfCupsOfSugar >= recipe.numberOfCupsOfSugar && inventory.totalNumberOfIceCubes >= recipe.numberOfIceCubes && inventory.totalNumberOfCups >= cupsToPitcher)
+            //    {
+            //    cupsToPitcher = 8;
+            //    MakePitcher();
+            //    }
+            //}
         }
 
 

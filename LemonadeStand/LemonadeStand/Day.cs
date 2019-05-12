@@ -14,6 +14,7 @@ namespace LemonadeStand
         public int dayOfWeek;
         public string currentDay;
         public int totalChance;
+        public double pricePerDay;
         public List<string> whichDay = new List<string>();
         public int numberOfChanceVariables;
         public Weather weather;
@@ -35,17 +36,14 @@ namespace LemonadeStand
             customer = new Customer();
             weather = new Weather();
             totalChance = 0;
-            numberOfChanceVariables = 4;
+            numberOfChanceVariables = 5; //1 day of the week, 2 current weather, 3 temperature, 4 price per day, 5 customer chance to buy
         }
         //DOES 
         public string DayToStart()
         {
-            dayOfWeek = random.Next(0, 8);
-            for(int i = 0; i < 7; i++)
-            {
-                currentDay = whichDay[i];
-            }
-            return currentDay;
+            dayOfWeek = random.Next(0, 7);
+                currentDay = whichDay[dayOfWeek];
+                return currentDay;
         }
 
         public int TotalChanceByDay()
@@ -74,6 +72,7 @@ namespace LemonadeStand
                     totalChance += random.Next(80, 101);
                     break;
             }
+
             switch (weather.currentWeather)
             {
                 case "sunny":
@@ -100,6 +99,7 @@ namespace LemonadeStand
                     totalChance += random.Next(0, 11);
                     break;
             }
+
             if (weather.temperature > 90)
             {
                 totalChance += random.Next(90, 101);
@@ -120,26 +120,36 @@ namespace LemonadeStand
             {
                 totalChance += random.Next(50, 61);
             }
-            totalChance = GenerateIndividualCustomerChance();
-            return totalChance;
-        }
 
-        public int GenerateIndividualCustomerChance()
-        {
+            if (pricePerDay > .75)
+            {
+                totalChance += random.Next(0, 26);
+            }
+            else if (pricePerDay > .50 && pricePerDay < .76)
+            {
+                totalChance += random.Next(25, 51);
+            }
+            else if (pricePerDay > .25 && pricePerDay < .51)
+            {
+                totalChance += random.Next(50, 75);
+            }
+            else if (pricePerDay <= 0)
+            {
+                totalChance += 100;
+            }
             customer.chanceToBuyLemonade = random.Next(0, 100);
             totalChance += customer.chanceToBuyLemonade;
             totalChance /= numberOfChanceVariables;
             return totalChance;
         }
+
         public void GenerateListOfPeopleChances()
         {
             for (int i = 0; i < weather.numberOfPeople; i++)
             {
                 customer.peopleChances.Add(TotalChanceByDay()); //now there's a list of people chances
             }
-
         }
-
 
     }
 
