@@ -35,6 +35,9 @@ namespace LemonadeStand
             do
             {
                 DisplayDayNumberAndDay();
+                day.weather.CurrentWeatherAndTemperature();
+                day.weather.GetNumberOfPeopleAccordingToWeather();
+                DisplayActualWeatherAndTemperature();
                 DisplayInventory();
                 store.Sells();
                 UpdateInventoryAfterStore();
@@ -43,10 +46,7 @@ namespace LemonadeStand
                 DisplayInventory();
                 SetPrice();
                 DisplaySettings();
-                day.weather.CurrentWeatherAndTemperature();
-                day.weather.GetNumberOfPeopleAccordingToWeather();
                 day.GenerateListOfPeopleChances();
-
                 player.MakePitcher();
                 ConvertToBuyOrNot();
                 DisplayDayOverview();
@@ -82,16 +82,21 @@ namespace LemonadeStand
             {
                 day.weather.ForecastWeatherAndTemperature();
                 day.weather.forecastWeatherList.Add(day.weather.forecastWeather);
-                day.weather.forecastWeatherList.ForEach(Console.WriteLine);
                 day.weather.forecastTemperatureList.Add(day.weather.forecastTemperature);
-                day.weather.forecastTemperatureList.ForEach(Console.WriteLine);
             }
+            day.weather.forecastWeatherList.ForEach(Console.WriteLine);
+            day.weather.forecastTemperatureList.ForEach(Console.WriteLine);
         }
 
 
         public void DisplayDayNumberAndDay()
         {
             Console.WriteLine($"{player.name}, this is day #{day.dayCount}, a {day.currentDay}.");
+        }
+
+        public void DisplayActualWeatherAndTemperature()
+        {
+            Console.WriteLine($"For better or worse, the actual weather is {day.weather.currentWeather} at {day.weather.temperature}.");
         }
 
         public void NextDay()
