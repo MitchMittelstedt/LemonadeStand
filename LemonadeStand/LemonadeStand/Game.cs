@@ -84,8 +84,10 @@ namespace LemonadeStand
                 day.weather.forecastWeatherList.Add(day.weather.forecastWeather);
                 day.weather.forecastTemperatureList.Add(day.weather.forecastTemperature);
             }
-            day.weather.forecastWeatherList.ForEach(Console.WriteLine);
-            day.weather.forecastTemperatureList.ForEach(Console.WriteLine);
+            for (int i = day.dayOfWeek; i < day.totalDayCount; i++)
+            {
+            Console.WriteLine($"{day.whichDay[i]} has a forecast of... {day.weather.forecastWeatherList[i]}, with a temperature of {day.weather.forecastTemperatureList[i]}!");
+            }
         }
 
 
