@@ -83,21 +83,13 @@ namespace LemonadeStand
                     return;
                 case 28:
                     return;
-                default:
-                    try
-                    {
-                        GetNumberOfDays();
-                    }
-                    catch (Exception)
-                    {
-                        Console.WriteLine("PLEASE ENTER ONE OF THE NUMBERS: 7, 14, 28. THANK YOU.");
-                    }
+                default:              
+                    GetNumberOfDays();
                     break;
             }
-
         }
 
-        public void DisplayForecastWeatherAndTemperatureForDurationOfGame()
+        public void DisplayForecastWeatherAndTemperatureForDurationOfGame()  //open/closed: if new weather conditions are added, they will be incorporated automatically in this function (once they are implemented in the Weather class).
         {
             for (int i = 0; i < day.totalDayCount; i++)
             {
@@ -110,7 +102,6 @@ namespace LemonadeStand
             Console.WriteLine($"{day.whichDay[i]} has a forecast of... {day.weather.forecastWeatherList[i]}, with a temperature of {day.weather.forecastTemperatureList[i]}!");
             }
         }
-
 
         public void DisplayDayNumberAndDay()
         {
@@ -142,7 +133,7 @@ namespace LemonadeStand
             }
         }
 
-        public void UpdateInventoryAfterStore()
+        public void UpdateInventoryAfterStore()             //single responsibility: updating items in inventory the same way in the same places
         {
             player.inventory.cash -= store.totalCost;
             player.inventory.totalNumberOfLemons += store.totalLemons;
@@ -168,15 +159,14 @@ namespace LemonadeStand
             Console.WriteLine($"Today, you prepared your lemonade with {player.recipe.numberOfLemons} lemons, {player.recipe.numberOfCupsOfSugar} cups of sugar, and {player.recipe.numberOfIceCubes} ice cubes, and the price you set is ${day.pricePerDay}. Good luck!");
         }
 
-
         public void DisplayInventory()
         {
             Console.WriteLine($"Your inventory includes the following: {player.inventory.totalNumberOfLemons} lemons, {player.inventory.totalNumberOfCupsOfSugar} cups of sugar, {player.inventory.totalNumberOfIceCubes} ice cubes, {player.inventory.totalNumberOfCups} cups, and ${player.inventory.cash}.");
         }
 
-        public void ConvertToBuyOrNot() //SellLemonadeToCustomers()
+        public void ConvertToBuyOrNot()
         {
-            foreach (int element in day.customer.peopleChances) //why is it selling to more than the number of chances?
+            foreach (int element in day.customer.peopleChances) 
             {
                 if (element > 50)
                 {
@@ -220,10 +210,6 @@ namespace LemonadeStand
                     DisplayEndOverview();
                     break;
             }
-        }
-        public void WeatherForecast()
-        {
-
         }
     }
 }

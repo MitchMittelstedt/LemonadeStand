@@ -58,7 +58,6 @@ namespace LemonadeStand
             string purchaseChoice = "";
             while (purchaseChoice != "I'm good to go.")
             {
-
                 Console.WriteLine("Welcome to the store! What would you like to buy? We sell: \n\"lemons\" ($.89 for 10, $1.50 for 20, $2.79 for 40), \n\"sugar\" ($.89 for 10 (cups of sugar), $1.50 for 20, $2.79 for 40),  \n\"ice cubes\" ($.89 for 100, $1.50 for 250, $2.79 for 500), \n\"cups\" ($.89 for 25, $1.50 for 50, $2.79 for 100). \nIf you're good to go, just say, \"I'm good to go.\"");
                 purchaseChoice = Console.ReadLine();
                 switch (purchaseChoice)
