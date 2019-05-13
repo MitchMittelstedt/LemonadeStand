@@ -64,16 +64,37 @@ namespace LemonadeStand
 
         public void GetNumberOfDays()
         {
-            Console.WriteLine($"Hello, {player.name}. Select the number of days the game runs: 7, 14, or 28");
-            day.totalDayCount = int.Parse(Console.ReadLine());
-            if (day.totalDayCount == 7 || day.totalDayCount == 14 || day.totalDayCount == 28)
+            Console.WriteLine($"Hello, {player.name}. Select the number of days the game runs: 7, 14, or 28. Only input one of these numbers, or else.");
+            string temp = Console.ReadLine();
+            try
             {
-                return;
+                day.totalDayCount = int.Parse(temp);
             }
-            else
+            catch (Exception)
             {
-                GetNumberOfDays();
+                Console.WriteLine("Please enter one of the following numbers: 7, 14, or 28.");
             }
+
+            switch (day.totalDayCount)
+            {
+                case 7:
+                    return;
+                case 14:
+                    return;
+                case 28:
+                    return;
+                default:
+                    try
+                    {
+                        GetNumberOfDays();
+                    }
+                    catch (Exception)
+                    {
+                        Console.WriteLine("PLEASE ENTER ONE OF THE NUMBERS: 7, 14, 28. THANK YOU.");
+                    }
+                    break;
+            }
+
         }
 
         public void DisplayForecastWeatherAndTemperatureForDurationOfGame()
