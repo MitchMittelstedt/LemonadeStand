@@ -14,6 +14,7 @@ namespace LemonadeStand
         public Store store;
         public List<int> dailyLogOfCustomers = new List<int>();
         public List<int> dailyLogOfAllCustomers = new List<int>();
+        public List<string> allDays = new List<string>();
         public Random random;
         //CONSTRUCTOR
         public Game()
@@ -96,11 +97,9 @@ namespace LemonadeStand
                 day.weather.ForecastWeatherAndTemperature();
                 day.weather.forecastWeatherList.Add(day.weather.forecastWeather);
                 day.weather.forecastTemperatureList.Add(day.weather.forecastTemperature);
+                Console.WriteLine($"{day.whichDay[i]} has a forecast of... {day.weather.forecastWeatherList[i]}, with a temperature of {day.weather.forecastTemperatureList[i]}!");
             }
-            for (int i = day.dayOfWeek; i < day.totalDayCount; i++)
-            {
-            Console.WriteLine($"{day.whichDay[i]} has a forecast of... {day.weather.forecastWeatherList[i]}, with a temperature of {day.weather.forecastTemperatureList[i]}!");
-            }
+
         }
 
         public void DisplayDayNumberAndDay()

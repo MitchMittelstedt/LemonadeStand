@@ -37,6 +37,7 @@ namespace LemonadeStand
             weather = new Weather();
             totalChance = 0;
             numberOfChanceVariables = 5; //1 day of the week, 2 current weather, 3 temperature, 4 price per day, 5 customer chance to buy
+
         }
         //DOES 
         public string DayToStart()
