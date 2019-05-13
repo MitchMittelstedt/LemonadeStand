@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LemonadeStand
 {
-    class Store
+    public class Store
     {
         //HAS
         public double totalCost;
@@ -148,31 +148,8 @@ namespace LemonadeStand
                         break;
                     case "I'm good to go.":
                         break;
-
                 }
-
-            }
-            
+            }            
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }

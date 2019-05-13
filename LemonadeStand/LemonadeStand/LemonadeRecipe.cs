@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LemonadeStand
 {
-    class LemonadeRecipe
+    public class LemonadeRecipe
     {
         //has
         public int numberOfLemons;

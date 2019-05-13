@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LemonadeStand
 {
-    class Game
+    public class Game
     {
         //HAS
         public Player player;
@@ -89,7 +89,7 @@ namespace LemonadeStand
             }
         }
 
-        public void DisplayForecastWeatherAndTemperatureForDurationOfGame()  //open/closed: if new weather conditions are added, they will be incorporated automatically in this function (once they are implemented in the Weather class).
+        public void DisplayForecastWeatherAndTemperatureForDurationOfGame()     //open/closed: if new weather conditions are added, they will be incorporated automatically in this function (once they are implemented in the Weather class).
         {
             for (int i = 0; i < day.totalDayCount; i++)
             {
@@ -133,7 +133,7 @@ namespace LemonadeStand
             }
         }
 
-        public void UpdateInventoryAfterStore()             //single responsibility: updating items in inventory the same way in the same places
+        public void UpdateInventoryAfterStore()                                 //single responsibility: updating items in inventory the same way in the same places
         {
             player.inventory.cash -= store.totalCost;
             player.inventory.totalNumberOfLemons += store.totalLemons;
