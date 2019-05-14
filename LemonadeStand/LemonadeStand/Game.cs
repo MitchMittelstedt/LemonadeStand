@@ -16,6 +16,7 @@ namespace LemonadeStand
         public List<int> dailyLogOfAllCustomers = new List<int>();
         public List<string> allDays = new List<string>();
         public Random random;
+        public int tempDayOfWeek;
         //CONSTRUCTOR
         public Game()
         {
@@ -30,8 +31,8 @@ namespace LemonadeStand
         public void PlayGame()
         {
             GetName();
-            GetNumberOfDays();
             day.DayToStart();
+            GetNumberOfDays();
             DisplayForecastWeatherAndTemperatureForDurationOfGame();
             do
             {
@@ -66,27 +67,43 @@ namespace LemonadeStand
         public void GetNumberOfDays()
         {
             Console.WriteLine($"Hello, {player.name}. Select the number of days the game runs: 7, 14, or 28. Only input one of these numbers, or else.");
-            string temp = Console.ReadLine();
+            string noOfDays = Console.ReadLine();
             try
             {
-                day.totalDayCount = int.Parse(temp);
+                day.totalDayCount = int.Parse(noOfDays);
             }
             catch (Exception)
             {
                 Console.WriteLine("Please enter one of the following numbers: 7, 14, or 28.");
             }
-
-            switch (day.totalDayCount)
+            while (day.dayCount < day.totalDayCount)
             {
-                case 7:
-                    return;
-                case 14:
-                    return;
-                case 28:
-                    return;
-                default:              
-                    GetNumberOfDays();
-                    break;
+                for (int i = day.dayOfWeek; i < 7; i++)
+                {
+                    allDays.Add(day.whichDay[i]);
+                    if (i == 6)
+                    {
+                        i = 0;
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+
+
+                switch (noOfDays)
+                {
+                    case "7":
+                        return;
+                    case "14":
+                        return;
+                    case "28":
+                        return;
+                    default:
+                        GetNumberOfDays();
+                        break;
+                }
             }
         }
 
@@ -97,9 +114,15 @@ namespace LemonadeStand
                 day.weather.ForecastWeatherAndTemperature();
                 day.weather.forecastWeatherList.Add(day.weather.forecastWeather);
                 day.weather.forecastTemperatureList.Add(day.weather.forecastTemperature);
-                Console.WriteLine($"{day.whichDay[i]} has a forecast of... {day.weather.forecastWeatherList[i]}, with a temperature of {day.weather.forecastTemperatureList[i]}!");
+                Console.WriteLine($"{day.whichDay[day.dayOfWeek]} has a forecast of... {day.weather.forecastWeatherList[i]}, with a temperature of {day.weather.forecastTemperatureList[i]}!");
+                tempDayOfWeek = day.dayOfWeek;
+                day.dayOfWeek++;
+                if (day.dayOfWeek == 7)
+                {
+                    day.dayOfWeek = 0;
+                }
             }
-
+            day.dayOfWeek = tempDayOfWeek;                          
         }
 
         public void DisplayDayNumberAndDay()
