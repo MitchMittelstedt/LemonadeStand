@@ -18,7 +18,7 @@ namespace LemonadeStand
         public List<string> whichDay = new List<string>();
         public int numberOfChanceVariables;
         public Weather weather;
-        public Customer customer;
+        public Customer customer;  //list of customers instead of single
         public Random random;
 
         //CONSTRUCTOR
@@ -148,7 +148,9 @@ namespace LemonadeStand
         {
             for (int i = 0; i < weather.numberOfPeople; i++)
             {
+                //instantiate new customer here?
                 customer.peopleChances.Add(TotalChanceByDay()); //now there's a list of people chances
+                //convert to buy or not move here?
             }
         }
 
